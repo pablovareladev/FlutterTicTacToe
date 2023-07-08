@@ -1,6 +1,0 @@
-La CPU es aleatoria
-
-
-Futuras implementaciones
-Algun tipo de gif para hacer el logo mas vistoso.
-incluir algun tipo de sonido al ganar o perder.
