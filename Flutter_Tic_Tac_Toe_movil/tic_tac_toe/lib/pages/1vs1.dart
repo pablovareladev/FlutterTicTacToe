@@ -1,5 +1,7 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:audioplayers/audioplayers.dart';
+import 'package:flutter/services.dart';
 
 class pagina1vs1 extends StatelessWidget {
   // This widget is the root of your application.
@@ -53,6 +55,8 @@ class TerceraClase extends State<SegundaClase> {
   String mostrarTextoGanador = "assets/images/1.png";
   String mostrarPiezaGanadora = "assets/images/1.png";
   String botonVolverJugar = "assets/images/1.png";
+
+  AudioCache cache = AudioCache();
 
   @override
   Widget build(BuildContext context) {
@@ -165,9 +169,11 @@ class TerceraClase extends State<SegundaClase> {
                   icon: Image(
                     image: AssetImage(botonVolverJugar),
                   ),
-                  onPressed: () {
+                  onPressed: () async{
                     if (botonVolverJugar ==
                         "assets/images/botonvolverjugar.png") {
+                          //reproducir sonido de boton
+                           await cache.play('audio/buttonSound.mp3');
                       resetearPartida();
                     }
                   },
@@ -455,7 +461,9 @@ class TerceraClase extends State<SegundaClase> {
   }
 
   //llamar a esta funcion cada vez que se pulse un cuadrado y pasarle el cuadrado correspondidente e igualarlo al mismo
-  ponerPiezaX() {
+  ponerPiezaX() async{
+    //reproducimos el sonido de la pieza X
+    await cache.play('audio/Xsound.mp3');
     setState(() {
       //si turno NO es par es turno para jugador X
       if (cuadrado1 == "assets/images/1.png" && ocupado1 == true) {
@@ -492,7 +500,9 @@ class TerceraClase extends State<SegundaClase> {
     });
   }
 
-  ponerPiezaO() {
+  ponerPiezaO() async{
+    //reproducimos el sonido de la pieza O
+    await cache.play('audio/Osound.mp3');
     setState(() {
       //si turno es par es turno para jugador O
       if (cuadrado1 == "assets/images/1.png" && ocupado1 == true) {
@@ -529,7 +539,7 @@ class TerceraClase extends State<SegundaClase> {
     });
   }
 
-  comprobarEmpate() {
+  comprobarEmpate() async{
     setState(() {
       contEmpate++;
 
@@ -541,6 +551,11 @@ class TerceraClase extends State<SegundaClase> {
         mostrarBotonVolverJugar();
       }
     });
+
+    //SONIDO DE EMPATE
+    if(contEmpate == 9 && ganador == false){
+      await cache.play('audio/tieSound.mp3');
+    }
   }
 
   resetearPartida() {
@@ -583,7 +598,7 @@ class TerceraClase extends State<SegundaClase> {
     });
   }
 
-  comprobarGanador() {
+  comprobarGanador() async{
     setState(() {
       if ((cuadrado1 == "assets/images/X.png" &&
               cuadrado2 == "assets/images/X.png" &&
@@ -609,6 +624,7 @@ class TerceraClase extends State<SegundaClase> {
           (cuadrado3 == "assets/images/X.png" &&
               cuadrado5 == "assets/images/X.png" &&
               cuadrado7 == "assets/images/X.png")) {
+ 
         ganador = true;
         mostrarTextoGanador = "assets/images/ganador.png";
         mostrarPiezaGanadora = "assets/images/X.png";
@@ -649,6 +665,10 @@ class TerceraClase extends State<SegundaClase> {
         mostrarBotonVolverJugar();
       }
     });
+    //SONIDO DE VICTORIA
+    if(ganador == true){
+      await cache.play('audio/victorySound.mp3');
+    }
   }
 
   mostrarCasillaOcupada() {

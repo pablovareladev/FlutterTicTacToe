@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:audioplayers/audioplayers.dart';
+import 'package:flutter/services.dart';
 
 class menuPrincipal extends StatelessWidget {
   final formKey = GlobalKey<FormState>();
+  AudioCache cache = AudioCache();
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +41,8 @@ class menuPrincipal extends StatelessWidget {
                     icon: Image(
                       image: AssetImage("assets/images/jugar1VS1.png"),
                     ),
-                    onPressed: () {
+                    onPressed: ()  async {
+                      await cache.play('audio/buttonSound.mp3');
                       mostrarPagina1VS1(context);
                     },
                   ),
@@ -59,7 +63,8 @@ class menuPrincipal extends StatelessWidget {
                   icon: Image(
                     image: AssetImage("assets/images/jugarCPU.png"),
                   ),
-                  onPressed: () {
+                  onPressed: () async{
+                    await cache.play('audio/buttonSound.mp3');
                     mostrarPaginaCPU(context);
                   },
                 ),
