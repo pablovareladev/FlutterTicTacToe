@@ -169,11 +169,11 @@ class TerceraClase extends State<SegundaClase> {
                   icon: Image(
                     image: AssetImage(botonVolverJugar),
                   ),
-                  onPressed: () async{
+                  onPressed: () {
                     if (botonVolverJugar ==
                         "assets/images/botonvolverjugar.png") {
                           //reproducir sonido de boton
-                           await cache.play('audio/buttonSound.mp3');
+                            cache.play('audio/buttonSound.mp3');
                       resetearPartida();
                     }
                   },
@@ -461,9 +461,9 @@ class TerceraClase extends State<SegundaClase> {
   }
 
   //llamar a esta funcion cada vez que se pulse un cuadrado y pasarle el cuadrado correspondidente e igualarlo al mismo
-  ponerPiezaX() async{
+  ponerPiezaX() {
     //reproducimos el sonido de la pieza X
-    await cache.play('audio/Xsound.mp3');
+     cache.play('audio/Xsound.mp3');
     setState(() {
       //si turno NO es par es turno para jugador X
       if (cuadrado1 == "assets/images/1.png" && ocupado1 == true) {
@@ -500,9 +500,9 @@ class TerceraClase extends State<SegundaClase> {
     });
   }
 
-  ponerPiezaO() async{
+  ponerPiezaO() {
     //reproducimos el sonido de la pieza O
-    await cache.play('audio/Osound.mp3');
+     cache.play('audio/Osound.mp3');
     setState(() {
       //si turno es par es turno para jugador O
       if (cuadrado1 == "assets/images/1.png" && ocupado1 == true) {
@@ -539,7 +539,7 @@ class TerceraClase extends State<SegundaClase> {
     });
   }
 
-  comprobarEmpate() async{
+  comprobarEmpate(){
     setState(() {
       contEmpate++;
 
@@ -553,8 +553,8 @@ class TerceraClase extends State<SegundaClase> {
     });
 
     //SONIDO DE EMPATE
-    if(contEmpate == 9 && ganador == false){
-      await cache.play('audio/tieSound.mp3');
+   if(contEmpate == 9 && ganador == false){
+       cache.play('audio/tieSound.mp3');
     }
   }
 
@@ -598,7 +598,7 @@ class TerceraClase extends State<SegundaClase> {
     });
   }
 
-  comprobarGanador() async{
+  comprobarGanador(){
     setState(() {
       if ((cuadrado1 == "assets/images/X.png" &&
               cuadrado2 == "assets/images/X.png" &&
@@ -667,7 +667,7 @@ class TerceraClase extends State<SegundaClase> {
     });
     //SONIDO DE VICTORIA
     if(ganador == true){
-      await cache.play('audio/victorySound.mp3');
+       cache.play('audio/victorySound.mp3');
     }
   }
 

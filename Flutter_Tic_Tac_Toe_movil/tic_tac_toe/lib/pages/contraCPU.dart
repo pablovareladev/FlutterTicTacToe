@@ -2,6 +2,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:audioplayers/audioplayers.dart';
+import 'dart:async';
 class contraCPU extends StatelessWidget {
   // This widget is the root of your application.
   @override
@@ -48,7 +49,7 @@ class TerceraClase extends State<SegundaClase> {
   int turno = 0; //se decide quien empieza
   int contEmpate = 0;
 
-  String mostrarTurno = "";
+  String mostrarTurno = "assets/images/1.png";
   bool empezarPartida = true;
   bool escogerFicha = false;
   bool haJugadoCPU = false;
@@ -61,6 +62,8 @@ class TerceraClase extends State<SegundaClase> {
   String fichaUsuario = "";
   String fichaCPU = "";
   String mostrarTextoCPUGana = "assets/images/1.png";
+
+  bool permitirJugar = true;
 
   //PARA REPRODUCIR SONIDOS
   AudioCache cache = AudioCache();
@@ -150,13 +153,17 @@ class TerceraClase extends State<SegundaClase> {
       );
       //mientras no seleccione con que ficha quiere empezar no empezará la partida
     } else {
-      if (fichaUsuario == "X" && ganador == false) {
-        mostrarTurno = "assets/images/X.png";
-      } else if (fichaUsuario == "O" && ganador == false) {
-        mostrarTurno = "assets/images/O.png";
-      } else {
+      if(ganador == true || empate == true){
         mostrarTurno = "assets/images/1.png";
+      }else{
+        if (fichaUsuario == "X" && ganador == false && mostrarTurno == "assets/images/1.png") {
+        mostrarTurno = "assets/images/X.png";
+      } else if (fichaUsuario == "O" && ganador == false && mostrarTurno == "assets/images/1.png") {
+        mostrarTurno = "assets/images/O.png";
+      } 
+
       }
+      
       //solo queremos que entre una vez en estos if
       if (empezarPartida) {
         //inicializamos la variable aqui para que cada vez que pase tome un valor diferente
@@ -320,8 +327,9 @@ class TerceraClase extends State<SegundaClase> {
                         image: AssetImage(cuadrado1),
                       ),
                       onPressed: () async{
-
-                        //Si está jugando X
+                        //hay ocasiones donde el usuario no podrá jugar por delay de la CPU
+                        if(permitirJugar == true){
+                          //Si está jugando X
                         if(mostrarTurno == "assets/images/X.png" && ocupado1 == false){
                           //reproducir sonido de X
                            await cache.play('audio/Xsound.mp3');
@@ -331,9 +339,9 @@ class TerceraClase extends State<SegundaClase> {
                            await cache.play('audio/Osound.mp3');
                         }
 
-
+                        //si el cuadrado está vacio y no hay ganador, dejamos jugar (y si no estamos bloqueando la accion)
                         if (cuadrado1 == "assets/images/1.png" &&
-                            ganador == false) {
+                          ganador == false) {
                           ocupado1 = true;
                           jugar();
 
@@ -347,6 +355,7 @@ class TerceraClase extends State<SegundaClase> {
                         } else {
                           mostrarCasillaOcupada();
                         }
+                        }               
                       },
                     ),
                   ),
@@ -363,6 +372,8 @@ class TerceraClase extends State<SegundaClase> {
                         image: AssetImage(cuadrado2),
                       ),
                       onPressed: () async{
+                        //hay ocasiones donde el usuario no podrá jugar por delay de la CPU
+                        if(permitirJugar == true){
                         //Si está jugando X
                         if(mostrarTurno == "assets/images/X.png" && ocupado2 == false){
                           //reproducir sonido de X
@@ -387,6 +398,7 @@ class TerceraClase extends State<SegundaClase> {
                         } else {
                           mostrarCasillaOcupada();
                         }
+                        }
                       },
                     ),
                   ),
@@ -403,6 +415,8 @@ class TerceraClase extends State<SegundaClase> {
                         image: AssetImage(cuadrado3),
                       ),
                       onPressed: () async{
+                        //hay ocasiones donde el usuario no podrá jugar por delay de la CPU
+                        if(permitirJugar == true){
                         //Si está jugando X
                         if(mostrarTurno == "assets/images/X.png" && ocupado3 == false){
                           //reproducir sonido de X
@@ -426,6 +440,7 @@ class TerceraClase extends State<SegundaClase> {
                             }
                         } else {
                           mostrarCasillaOcupada();
+                        }
                         }
                       },
                     ),
@@ -456,6 +471,8 @@ class TerceraClase extends State<SegundaClase> {
                         image: AssetImage(cuadrado4),
                       ),
                       onPressed: () async{
+                        //hay ocasiones donde el usuario no podrá jugar por delay de la CPU
+                        if(permitirJugar == true){
                         //Si está jugando X
                         if(mostrarTurno == "assets/images/X.png" && ocupado4 == false){
                           //reproducir sonido de X
@@ -480,6 +497,7 @@ class TerceraClase extends State<SegundaClase> {
                         } else {
                           mostrarCasillaOcupada();
                         }
+                        }
                       },
                     ),
                   ),
@@ -496,6 +514,8 @@ class TerceraClase extends State<SegundaClase> {
                         image: AssetImage(cuadrado5),
                       ),
                       onPressed: () async{
+                        //hay ocasiones donde el usuario no podrá jugar por delay de la CPU
+                        if(permitirJugar == true){
                         //Si está jugando X
                         if(mostrarTurno == "assets/images/X.png" && ocupado5 == false){
                           //reproducir sonido de X
@@ -520,6 +540,7 @@ class TerceraClase extends State<SegundaClase> {
                         } else {
                           mostrarCasillaOcupada();
                         }
+                        }
                       },
                     ),
                   ),
@@ -536,6 +557,8 @@ class TerceraClase extends State<SegundaClase> {
                         image: AssetImage(cuadrado6),
                       ),
                       onPressed: () async{
+                        //hay ocasiones donde el usuario no podrá jugar por delay de la CPU
+                        if(permitirJugar == true){
                         //Si está jugando X
                         if(mostrarTurno == "assets/images/X.png" && ocupado6 == false){
                           //reproducir sonido de X
@@ -559,6 +582,7 @@ class TerceraClase extends State<SegundaClase> {
                             }
                         } else {
                           mostrarCasillaOcupada();
+                        }
                         }
                       },
                     ),
@@ -589,6 +613,8 @@ class TerceraClase extends State<SegundaClase> {
                           image: AssetImage(cuadrado7),
                         ),
                         onPressed: () async{
+                          //hay ocasiones donde el usuario no podrá jugar por delay de la CPU
+                        if(permitirJugar == true){
                           //Si está jugando X
                         if(mostrarTurno == "assets/images/X.png" && ocupado7 == false){
                           //reproducir sonido de X
@@ -613,6 +639,7 @@ class TerceraClase extends State<SegundaClase> {
                           } else {
                             mostrarCasillaOcupada();
                           }
+                        }
                         },
                       ),
                     ),
@@ -629,6 +656,8 @@ class TerceraClase extends State<SegundaClase> {
                           image: AssetImage(cuadrado8),
                         ),
                         onPressed: () async{
+                          //hay ocasiones donde el usuario no podrá jugar por delay de la CPU
+                        if(permitirJugar == true){
                           //Si está jugando X
                         if(mostrarTurno == "assets/images/X.png" && ocupado8 == false){
                           //reproducir sonido de X
@@ -653,6 +682,7 @@ class TerceraClase extends State<SegundaClase> {
                           } else {
                             mostrarCasillaOcupada();
                           }
+                        }
                         },
                       ),
                     ),
@@ -669,6 +699,8 @@ class TerceraClase extends State<SegundaClase> {
                           image: AssetImage(cuadrado9),
                         ),
                         onPressed: () async{
+                          //hay ocasiones donde el usuario no podrá jugar por delay de la CPU
+                        if(permitirJugar == true){
                           //Si está jugando X
                         if(mostrarTurno == "assets/images/X.png" && ocupado9 == false){
                           //reproducir sonido de X
@@ -693,6 +725,7 @@ class TerceraClase extends State<SegundaClase> {
                           } else {
                             mostrarCasillaOcupada();
                           }
+                        }
                         },
                       ),
                     ),
@@ -767,9 +800,11 @@ class TerceraClase extends State<SegundaClase> {
       } else if (cuadrado9 == "assets/images/9.png" && ocupado9 == true) {
         cuadrado9 = "assets/images/X.png";
       }
+      
       //Comprobamos si ha ganado alguien
       comprobarGanador();
     });
+    
   }
 
   ponerPiezaO() {
@@ -814,7 +849,7 @@ class TerceraClase extends State<SegundaClase> {
       }
     });
     //SONIDO DE EMPATE
-    if(contEmpate == 9 && ganador == false){
+    if(empate == true){
     await cache.play('audio/tieSound.mp3');
     }
   }
@@ -858,6 +893,7 @@ class TerceraClase extends State<SegundaClase> {
       mostrarTextoGanador = "assets/images/1.png";
       mostrarTextoCPUGana = "assets/images/1.png";
       ronda = 0;
+      permitirJugar = true;
     });
   }
 
@@ -893,10 +929,12 @@ class TerceraClase extends State<SegundaClase> {
 
         if (ganador == true && fichaUsuario != "X") {
           mostrarTextoCPUGana = "assets/images/textoCPUgana.png";
+          cache.play('audio/defeatSound.mp3');
         } else {
           mostrarTextoGanador = "assets/images/ganador.png";
           mostrarPiezaGanadora = "assets/images/X.png";
           mostrarTurno = "assets/images/1.png";
+
         }
 
         //mostramos el boton para poder reiniciar la partida
@@ -931,6 +969,7 @@ class TerceraClase extends State<SegundaClase> {
 
         if (ganador == true && fichaUsuario != "O") {
           mostrarTextoCPUGana = "assets/images/textoCPUgana.png";
+          cache.play('audio/defeatSound.mp3');
         } else {
           mostrarTextoGanador = "assets/images/ganador.png";
           mostrarPiezaGanadora = "assets/images/O.png";
@@ -966,10 +1005,26 @@ class TerceraClase extends State<SegundaClase> {
     });
   }
 
-  jugarCPU() {
-    setState(() {
-      while (!haJugadoCPU && !ganador && !empate) {
+  jugarCPU() async{
+      setState(() {
+      //empezamos a ignorar lo que haga el usuario
+      permitirJugar = false;
+      //MOSTRAMOS TURNO DE LA CPU
+      if(fichaCPU == "X"){
+        mostrarTurno = "assets/images/X.png";
+      }else if (fichaCPU == "O"){
+        mostrarTurno = "assets/images/O.png";
+      }
+    });
 
+    if(ganador == false && empate == false){
+      //BLOQUADOR DE PANTALLA (Para que el usuario no pueda jugar)
+       Timer(Duration(milliseconds: 1000), () {
+    // Code to execute after the delay
+    // This block will be executed asynchronously
+    setState(() {
+
+      while (!haJugadoCPU && !ganador && !empate) {  
 /*Intentando hacer IA lista   1 3 7 9 */
 //FICHA DE LA CPU ES X--------------------------------------------------------------------------------------------------------------------
 if(fichaCPU == "X"){
@@ -2599,8 +2654,26 @@ if(fichaCPU == "O"){
       //sale del while con lo cual la CPU ya marcó
       haJugadoCPU = false;
     });
-  }
+    //sonido de la ficha de la CPU
+    if(ganador == false || empate == false || turno == 10){
+      if(fichaCPU == "O"){
+        cache.play('audio/Osound.mp3');
+        // si la ficha es X...
+      }else{
+        cache.play('audio/Xsound.mp3');
+      }
+    }
+    //hacemos caso a lo que haga el usuario nuevamente
+        permitirJugar = true;
+        //Mostramos el turno del Jugador
+      if(fichaUsuario == "X"){
+        mostrarTurno = "assets/images/X.png";
+      }else if (fichaUsuario == "O"){
+        mostrarTurno = "assets/images/O.png";
+      }
+  });}
 
+  }
 
 //METODOS CPU CUANDO SEA X------------------------------------------------------------------
   //metodo para que la CPU escoja una esquina aleatoria en el tablero
@@ -2635,7 +2708,9 @@ if(fichaCPU == "O"){
       primeraEsquina = 9;
       haJugadoCPU = true;
     }
+    
   }
+  
   puedeTresEnRayaCPUX(){
     if (cuadrado1 == "assets/images/X.png" && cuadrado2 == "assets/images/X.png" && !ocupado3 && !haJugadoCPU) {
             cuadrado3 = "assets/images/X.png";
@@ -3069,4 +3144,7 @@ if(fichaCPU == "O"){
             haJugadoCPU = true;
           }
   }
+
+
+    
 }
